@@ -1,4 +1,4 @@
-*/ World Life Expectancy Data exploration
+*/ World Life Expectancy Data  exploration
 
 SELECT Country, Year, CONCAT(Country,Year), COUNT(CONCAT(Country,Year))
 FROM world_life_expectancy
