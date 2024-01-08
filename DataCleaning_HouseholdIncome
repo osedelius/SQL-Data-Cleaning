@@ -20,11 +20,12 @@ FROM us_porject.us_household_income;
 SELECT *
 FROM us_porject.us_household_income_statistics;
 
+-- identifying and deleting any duplicate values for row_id
+
 SELECT id, COUNT(id)
 FROM us_porject.us_household_income
 GROUP BY id
 HAVING COUNT(id) > 1
-
 
 SELECT row_id
 FROM
@@ -46,7 +47,10 @@ WHERE row_id IN (
 		FROM us_porject.us_household_income
 		) AS duplicates
 	WHERE row_num > 1)
-    
+
+
+-- cleaning up spelling mistakes for state name
+
 SELECT DISTINCT State_name
 FROM us_porject.us_household_income
 ORDER BY 1
@@ -60,11 +64,13 @@ WHERE State_Name = 'alabama';
 SELECT *
 FROM us_porject.us_household_income
 WHERE Place = ''
-ORDER BY 1
+ORDER BY 1;
 
 UPDATE us_porject.us_household_income SET Place = 'Autaugaville'
 WHERE County = 'Autauga County'
-AND City = 'Vinemont'
+AND City = 'Vinemont';
+
+-- identifying any duplicates or type spelling error and updating
 
 SELECT Type, COUNT(Type)
 FROM us_porject.us_household_income
@@ -73,6 +79,8 @@ ORDER BY 1
 
 UPDATE us_porject.us_household_income SET Type = 'Borough'
 WHERE Type = 'Boroughs'
+
+-- identifying any zero's, null or blank values
 
 SELECT ALand, AWater
 FROM us_porject.us_household_income
